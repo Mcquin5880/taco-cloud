@@ -3,44 +3,40 @@ package com.mcq.tacocloud.controller;
 import com.mcq.tacocloud.model.Ingredient;
 import com.mcq.tacocloud.model.Taco;
 import com.mcq.tacocloud.model.TacoOrder;
+import com.mcq.tacocloud.repo.IngredientRepository;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import static com.mcq.tacocloud.model.Ingredient.Type;
-
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static com.mcq.tacocloud.model.Ingredient.Type;
 
 @Controller
 @Slf4j
 @RequestMapping("/design")
 @SessionAttributes("tacoOrder")
+@RequiredArgsConstructor
 public class DesignTacoController {
+
+    private final IngredientRepository ingredientRepository;
 
     @ModelAttribute
     public void addIngredientsToModel(Model model) {
+        Iterable<Ingredient> ingredients = ingredientRepository.findAll();
 
-        List<Ingredient> ingredients = Arrays.asList(
-                new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
-                new Ingredient("COTO", "Corn Tortilla", Type.WRAP),
-                new Ingredient("GRBF", "Ground Beef", Type.PROTEIN),
-                new Ingredient("CARN", "Carnitas", Type.PROTEIN),
-                new Ingredient("TMTO", "Diced Tomatoes", Type.VEGGIES),
-                new Ingredient("LETC", "Lettuce", Type.VEGGIES),
-                new Ingredient("CHED", "Cheddar", Type.CHEESE),
-                new Ingredient("JACK", "Monterrey Jack", Type.CHEESE),
-                new Ingredient("SLSA", "Salsa", Type.SAUCE),
-                new Ingredient("SRCR", "Sour Cream", Type.SAUCE)
-        );
+        List<Ingredient> ingredientList = StreamSupport.stream(ingredients.spliterator(), false)
+                .collect(Collectors.toList());
 
         Type[] types = Type.values();
         for (Type type : types) {
-            model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
+            model.addAttribute(type.toString().toLowerCase(), filterByType(ingredientList, type));
         }
     }
 

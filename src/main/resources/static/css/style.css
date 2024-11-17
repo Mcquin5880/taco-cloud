@@ -133,6 +133,26 @@ button:hover {
     border-color: #ff6347;
 }
 
+.center-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.center-section #another {
+    font-size: 18px;
+    color: #11a7ae;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #11a7ae;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.center-section #another:hover {
+    background-color: #11a7ae;
+    color: white;
+}
+
 ul {
     padding-left: 20px;
 }

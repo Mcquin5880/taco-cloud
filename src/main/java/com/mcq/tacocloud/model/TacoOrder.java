@@ -4,13 +4,15 @@ import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-import org.hibernate.validator.constraints.CreditCardNumber;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
 public class TacoOrder {
+
+    private Long id;
 
     @NotBlank(message="Delivery name is required")
     private String deliveryName;
@@ -27,7 +29,6 @@ public class TacoOrder {
     @NotBlank(message="Zip code is required")
     private String deliveryZip;
 
-    // simplified cc validation for testing
     @Pattern(regexp = "\\d{4,16}", message = "Not a valid credit card number")
     private String ccNumber;
 
@@ -36,6 +37,8 @@ public class TacoOrder {
 
     @Digits(integer=3, fraction=0, message="Invalid CVV")
     private String ccCVV;
+
+    private Date placedAt = new Date();
 
     private List<Taco> tacos = new ArrayList<>();
 
