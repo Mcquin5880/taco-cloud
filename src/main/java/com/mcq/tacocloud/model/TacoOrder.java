@@ -1,5 +1,6 @@
 package com.mcq.tacocloud.model;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -10,8 +11,11 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@Entity
 public class TacoOrder {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotBlank(message="Delivery name is required")
@@ -40,6 +44,7 @@ public class TacoOrder {
 
     private Date placedAt = new Date();
 
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Taco> tacos = new ArrayList<>();
 
     public void addTaco(Taco taco) {
