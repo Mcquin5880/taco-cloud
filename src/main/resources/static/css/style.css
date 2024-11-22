@@ -93,7 +93,8 @@ label {
     color: #4d4d4d;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #dcdcdc;
@@ -105,18 +106,20 @@ input[type="text"] {
 button {
     display: block;
     margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 18px;
+    padding: 15px 30px;
+    font-size: 20px;
     color: white;
     background-color: #ff6347;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
     background-color: #e5533b;
+    transform: scale(1.05);
 }
 
 #another {
