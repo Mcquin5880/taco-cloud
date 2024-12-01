@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: taco-cloud-client
+  security:
+    oauth2:
+      client:
+        registration:
+          taco-client:
+            provider: taco-provider
+            client-id: taco-client
+            client-secret: taco-secret
+            authorization-grant-type: client_credentials
+            scope: read
+        provider:
+          taco-provider:
+            token-uri: http://localhost:9000/oauth2/token
