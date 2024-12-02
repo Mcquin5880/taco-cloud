@@ -26,7 +26,7 @@ public class AuthorizationServerConfig {
                 .clientSecret(passwordEncoder().encode("taco-secret"))
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .scope("read")
+                .scope("read").scope("write")
                 .build();
         return new InMemoryRegisteredClientRepository(registeredClient);
     }
