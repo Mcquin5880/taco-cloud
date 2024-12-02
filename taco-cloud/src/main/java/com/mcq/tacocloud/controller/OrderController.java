@@ -2,6 +2,7 @@ package com.mcq.tacocloud.controller;
 
 import com.mcq.tacocloud.model.TacoOrder;
 import com.mcq.tacocloud.repo.OrderRepository;
+import com.mcq.tacocloud.jms.RabbitOrderMessagingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.support.SessionStatus;
 public class OrderController {
 
     private final OrderRepository orderRepository;
+    private final RabbitOrderMessagingService messagingService;
 
     @GetMapping("/current")
     public String orderForm() {
@@ -32,6 +34,7 @@ public class OrderController {
         if (errors.hasErrors()) return "orderForm";
         log.info("Order submitted: {}", order);
         orderRepository.save(order);
+        messagingService.sendOrder(order);
         sessionStatus.setComplete();
         return "redirect:/";
     }

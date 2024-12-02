@@ -2,13 +2,13 @@ package com.mcq.tacocloud.controller;
 
 import com.mcq.tacocloud.model.Ingredient;
 import com.mcq.tacocloud.repo.IngredientRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path="/api/ingredients", produces="application/json")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class IngredientController {
 
     private final IngredientRepository ingredientRepository;
